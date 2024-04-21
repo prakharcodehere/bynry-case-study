@@ -16,6 +16,7 @@ box-shadow:  5px 5px 10px #bebebe,
 .user-wrapper{
 display: flex;
 flex-direction: row;
+
 width:100%;
 height: 100%;
 justify-content:flex-start;
@@ -31,7 +32,7 @@ text-align: start;
 
 .text-wrapper {
    
-    width: 80%; 
+    width: 70%; 
     padding-left: 10px;
     text-align: start;
     display: flex;
@@ -96,9 +97,10 @@ font-family: "Caveat", cursive;
     height: 60vh;
     border: 2px solid black;
     box-shadow: 4px 4px #CF5C36;
+   
   }
 
-  /* ProfileCard.css */
+  
 
 .modal {
     display: block;
@@ -118,7 +120,7 @@ font-family: "Caveat", cursive;
     padding: 20px;
     border: 1px solid #888;
     width: 80%;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add a shadow effect */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   }
   
   .close {
@@ -134,4 +136,75 @@ font-family: "Caveat", cursive;
     text-decoration: none;
     cursor: pointer;
   }
+  
+
+  .admin-buttons {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    align-items: center;
+    padding: 4px;
+    height: 80%;
+  
+    
+  }
+  
+  
+ .action-icon{
+    font-size: 18px;
+ }
+ .delete{
+    color: #F05D5E;
+ }
+ .edit{
+    color: #1F487E;
+ }
+  
+
+ /* ProfileCard.css */
+
+@media only screen and (max-width: 768px) {
+    .card-container {
+      width: 80vw;
+    }
+  
+    .user-wrapper {
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    .img-wrapper {
+      width: 60%;
+      margin-bottom: 20px;
+    }
+  
+    .img-wrapper img {
+      width: 100%;
+      height: auto;
+      border-radius: 50%;
+    }
+  
+    .text-wrapper {
+      width: 80%;
+      text-align: center;
+    }
+  
+    .address-wrapper {
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    button {
+      margin-right: 0;
+      margin-bottom: 10px;
+    }
+  
+    .map-container {
+      width: 80vw;
+      height: 40vh;
+    }
+  }
+
   

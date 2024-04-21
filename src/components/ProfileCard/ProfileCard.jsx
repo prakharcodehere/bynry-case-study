@@ -1,9 +1,12 @@
 import React, { useState } from 'react'
 import "./ProfileCard.css"
 import Map from '../Map/Map'
+import { MdEditSquare } from "react-icons/md";
+import { RiDeleteBin2Fill } from "react-icons/ri";
 
-const ProfileCard = ({id, name, description, address, image , lat,lng}) => {
+const ProfileCard = ({id, name, description, address, image , lat,lng, isAdminMode,onEditProfile, onDeleteProfile}) => {
   const [isOpen , setIsOpen] = useState(false)
+
   const openMap =() => {
 setIsOpen(true)
   }
@@ -12,6 +15,14 @@ setIsOpen(true)
     setIsOpen(false)
   }
   
+  const handleEditClick = () => {
+    onEditProfile({ id, name, description, address, image, lat, lng }); 
+};
+
+
+  const handleDeleteClick = () => {
+    onDeleteProfile(id);
+  }
     return (
     <div className='card-container'>
           <div className='user-wrapper'>
@@ -29,6 +40,17 @@ setIsOpen(true)
                     </span>
                 </div>
             </div>
+            {isAdminMode && (
+       <div className='admin-buttons'>
+       <button className='edit-btn' onClick={handleEditClick}>
+         <MdEditSquare className='action-icon edit'/>
+       </button>
+       <button className='delete-btn' onClick={handleDeleteClick}>
+         <RiDeleteBin2Fill className='action-icon delete'/>
+       </button>
+     </div>
+     
+        )}
           </div>
           {isOpen && 
           <div className="modal">
