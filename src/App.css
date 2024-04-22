@@ -20,9 +20,10 @@
 }
 
 .add-form-container form {
-  display: grid;
-  gap: 10px;
+ 
+  gap: 15px;
 }
+
 
 .add-form-container input {
   width: 100%;
@@ -85,3 +86,13 @@
 
 }
 
+.add-age-email{
+  display: flex;
+  margin: 8px 0;
+  
+}
+
+select{
+  margin-left: 10px;
+  margin-bottom: 10px;
+}

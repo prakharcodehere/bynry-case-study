@@ -41,7 +41,17 @@ const UserInterface = ({isAdminMode, profiles, onDeleteProfile ,onEditProfile}) 
   return (
     <div className='userinterface-container'>
 {currentProfiles.map((user) => (
-    <ProfileCard key={user.id} id={user.id} name={user.name} description={user.description} address={user.address} image={user.photo} lat={user.lat} lng={user.lng} isAdminMode={isAdminMode} onDeleteProfile={onDeleteProfile} onEditProfile={handleEdit}/>
+    <ProfileCard key={user.id} id={user.id} name={user.name} 
+    description={user.description} address={user.address} image={user.photo}
+age={user.age} experience={user.experience} gender={user.gender} interest={user.interests} education={user.education}
+contact={user.contact}
+
+     lat={user.lat} lng={user.lng} isAdminMode={isAdminMode}
+     onDeleteProfile={onDeleteProfile} onEditProfile={handleEdit}
+
+
+
+     />
 ))}
 <div className='pagination-container'>
   <div className='pagination'>
@@ -81,9 +91,21 @@ const EditProfileForm = ({ profile, onCancelEdit, onSaveEdit }) => {
         <div className="modal-backdrop">
         <div className="edit-form-container">
             <form onSubmit={handleSubmit} className="edit-form">
+
                 <input type="text" name="name" value={editedProfile.name} onChange={handleChange} placeholder="Name" />
                 <input type="text" name="description" value={editedProfile.description} onChange={handleChange} placeholder="Description" />
                 <input type="text" name="address" value={editedProfile.address} onChange={handleChange} placeholder="Address" />
+              <div className='edit-form-age'>
+                 <input type="text" name="age" value={editedProfile.age} onChange={handleChange} placeholder='Age' />
+                 <input type="text" name="email"  value={editedProfile.email}  onChange={handleChange} placeholder='Email' />
+
+              </div>
+                 <input type="text" name="education" value={editedProfile.education} onChange={handleChange} placeholder='education' />
+                 <input type="text" name="experience" value={editedProfile.experience} onChange={handleChange} placeholder='experience'/>
+
+                
+                
+                
                 <div className='form-button'>
                     <button type="submit">Save</button>
                     <button onClick={onCancelEdit}>Cancel</button>

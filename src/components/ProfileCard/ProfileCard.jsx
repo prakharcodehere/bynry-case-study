@@ -3,9 +3,11 @@ import "./ProfileCard.css"
 import Map from '../Map/Map'
 import { MdEditSquare } from "react-icons/md";
 import { RiDeleteBin2Fill } from "react-icons/ri";
+import { MdOutlineVerified } from "react-icons/md";
 
-const ProfileCard = ({id, name, description, address, image , lat,lng, isAdminMode,onEditProfile, onDeleteProfile}) => {
+const ProfileCard = ({id, name, description, address, image , lat,lng, isAdminMode,onEditProfile, onDeleteProfile, age , experience, gender, education, interest, contact}) => {
   const [isOpen , setIsOpen] = useState(false)
+  const [showFullDetails, setShowExtraDetails] = useState(false)
   
 
   const openMap =() => {
@@ -24,8 +26,15 @@ setIsOpen(true)
   const handleDeleteClick = () => {
     onDeleteProfile(id);
   }
+
+
+  const toggleExtraDetails =() => {
+setShowExtraDetails(!showFullDetails)
+  }
+
+
     return (
-    <div className='card-container'>
+    <div className='card-container' onClick={toggleExtraDetails}>
           <div className='user-wrapper'>
             <div className='img-wrapper'>
                 <img src={image} alt="user" />
@@ -41,6 +50,8 @@ setIsOpen(true)
                     </span>
                 </div>
             </div>
+
+          
             {isAdminMode && (
        <div className='admin-buttons'>
        <button className='edit-btn' onClick={handleEditClick}>
@@ -64,6 +75,31 @@ setIsOpen(true)
         </div>
           
           }
+            {showFullDetails&& 
+            <div className='user-extra-details'>
+              <div className='user-age-gender'>
+                <div className='user-age'>Age:<span>{age}</span></div>
+                <div className='user-gender'>Gender:<span>{gender}</span></div>
+              
+                
+              </div>
+      <div className='user-educ-exp'>
+        <div>Education:   <span className='user-edu'>{education}</span>   </div>
+        <div>Experience: <span className='user-exp'>{experience}</span></div>
+      </div>
+      <div className='user-int-email'>
+        <div>Interest: {interest}</div>
+        <div className='user-email'>
+          
+          Email: {contact} {" "}
+        <MdOutlineVerified/>
+          </div>
+      </div>
+              
+              </div>
+              
+              }
+
     </div>
   )
 }

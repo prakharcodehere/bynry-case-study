@@ -26,6 +26,11 @@ function App() {
     address: '',
     photo: '',
     gender: '',
+    age:'',
+    education:'',
+    experience:'',
+    interests:'',
+    contact:'',
     lat: 0,
     lng: 0
   });
@@ -67,6 +72,11 @@ function App() {
       lat,
       lng,
       gender: '',
+      age:'',
+      education:'',
+      experience:'',
+      interests:'',
+      contact:''
     });
     setShowAddForm(false);
     setNotification({ type: 'success', message: 'Profile added successfully' });
@@ -109,7 +119,7 @@ function App() {
   };
 
   const validateForm = () => {
-    if (!newProfile.name || !newProfile.address || !newProfile.description || !newProfile.gender) {
+    if (!newProfile.name || !newProfile.address || !newProfile.description || !newProfile.gender || !newProfile.age || !newProfile.contact | !newProfile.education || !newProfile.experience || !newProfile.interests) {
       setNotification({ type: 'error', message: 'All details are required' });
       setTimeout(() => {
         setNotification(null);
@@ -177,7 +187,23 @@ function App() {
         <input type="text" name="description" value={newProfile.description} onChange={handleChange} placeholder="Description" />
         <label>Enter Address</label>
         <input type="text" name="address" value={newProfile.address} onChange={handleChange} placeholder="Address" />
-       
+        
+        <div className="add-age-email">
+     
+        <label> Age</label>
+        <input type="text" name="age" value={newProfile.age} onChange={handleChange} placeholder="Age" />
+        <label>Email</label>
+        <input type="text" name="contact" value={newProfile.contact} onChange={handleChange} placeholder="Email" />
+        </div>
+        <label>Enter Education</label>
+        <input type="text" name="education" value={newProfile.education} onChange={handleChange} placeholder="Education" />
+
+        <label>Enter Experience</label>
+        <input type="text" name="experience" value={newProfile.experience} onChange={handleChange} placeholder="experience" />
+
+        <label>Enter Interest</label>
+        <input type="text" name="interests" value={newProfile.interests} onChange={handleChange} placeholder="Interests" />
+
         <label>Select Gender</label>
 <select name="gender" value={newProfile.gender} onChange={handleChange}>
   <option value="">Select Gender</option>

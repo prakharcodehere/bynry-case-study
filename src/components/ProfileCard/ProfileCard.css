@@ -140,16 +140,16 @@ font-family: "Caveat", cursive;
 
   .admin-buttons {
     display: flex;
-    flex-wrap: wrap; /* Allow buttons to wrap to the next line if necessary */
-    justify-content: center; /* Center buttons horizontally */
-    gap: 10px; /* Add space between buttons */
+    flex-wrap: wrap; 
+    justify-content: center; 
+    gap: 10px; 
     padding: 4px;
-    height: auto; /* Adjust height as needed */
+    height: auto;
   }
   
   .admin-buttons button {
-    flex-shrink: 0; /* Prevent buttons from shrinking */
-    min-width: 100px; /* Set a minimum width for buttons */
+    flex-shrink: 0; 
+    min-width: 100px; 
   }
   
   
@@ -163,6 +163,74 @@ font-family: "Caveat", cursive;
     color: #1F487E;
  }
   
+
+
+
+.user-extra-details{
+  margin-top: 10px;
+
+}
+
+
+.user-age .user-gender{
+  font-weight: 900;
+  letter-spacing: 10px;
+}
+
+
+
+
+.user-age, .user-gender span{
+ 
+  font-weight: 500;
+}
+
+
+ .user-age-gender{
+  margin-left: 4%;
+  display:flex;
+  align-items: center;
+  justify-content: space-around;
+  font-family: "Outfit", sans-serif;
+  border: 1px solid  #CF5C36;
+  width: 90%;
+  border-radius:8px;
+ }
+
+ .user-educ-exp{
+  margin-top: 4px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  padding: 10px;
+ }
+
+.user-edu{
+  font-family: "Caveat", cursive;
+  font-weight: 500;
+  font-size: 1.25rem;
+}
+
+.user-exp{
+  font-size: 1.05rem;
+}
+
+
+.user-int-email{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin: 7px 2px;
+}
+
+.user-email{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 
 
 @media only screen and (max-width: 768px) {
