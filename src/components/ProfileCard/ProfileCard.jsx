@@ -6,6 +6,7 @@ import { RiDeleteBin2Fill } from "react-icons/ri";
 
 const ProfileCard = ({id, name, description, address, image , lat,lng, isAdminMode,onEditProfile, onDeleteProfile}) => {
   const [isOpen , setIsOpen] = useState(false)
+  
 
   const openMap =() => {
 setIsOpen(true)

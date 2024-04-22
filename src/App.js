@@ -3,6 +3,7 @@ import { useState } from 'react';
 import './App.css';
 import NavBar from './components/NavBar/NavBar';
 import UserInterface from './components/UserInterface/UserInterface';
+import axios from "axios";
 import { FaWindowClose } from "react-icons/fa";
 import male1 from '../src/assets/male1.jpg';
 import male2 from '../src/assets/male2.jpg';
@@ -10,8 +11,7 @@ import male3 from '../src/assets/male3.jpg';
 import male4 from '../src/assets/male4.jpg';
 import female1 from '../src/assets/female1.jpg';
 import female2 from '../src/assets/female2.jpg';
-import female3 from '../src/assets/female3.jpg';
-import female4 from '../src/assets/female4.jpg';
+
 
 import Database from './data/database';
 
@@ -47,30 +47,57 @@ function App() {
   };
   
 
-  const handleSubmit = (e) => {
+  const handleSubmit =  async (e) => {
     e.preventDefault();
     if (!validateForm()) {
       return;
     }
+
+    const formattedAddress = formatAddress(newProfile.address);
+    const { lat, lng } = await getLatLngFromAddress(formattedAddress);
+
     const photo = getImageOptions();
-    console.log("Selected image:", photo); // Log selected image
+    console.log("Selected image:", photo); 
     setProfiles([...profiles, { ...newProfile, id: profiles.length + 1, photo }]);
     setNewProfile({
       name: '',
       description: '',
       address: '',
       photo: '',
-      lat: 0,
-      lng: 0,
+      lat,
+      lng,
       gender: '',
     });
     setShowAddForm(false);
     setNotification({ type: 'success', message: 'Profile added successfully' });
     setTimeout(() => {
+      console.log(newProfile);
       setNotification(null);
     }, 3000);
-    console.log(newProfile)
+   
   };
+
+
+  const getLatLngFromAddress = async (address) => {
+    try {
+      const response = await axios.get(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(address)}`);
+      if (response.data.length > 0) {
+        const { lat, lon } = response.data[0]; // Changed lng to lon
+        console.log(lat, lon);
+        return { lat, lng: lon };
+      }
+      throw new Error('No results found');
+    } catch (error) {
+      console.error('Error fetching geocode data:', error.message);
+      throw error;
+    }
+  };
+
+
+
+
+
+
 
   const getImageOptions = () => {
     if (newProfile.gender === 'male') {
@@ -82,7 +109,7 @@ function App() {
   };
 
   const validateForm = () => {
-    if (!newProfile.name || !newProfile.address) {
+    if (!newProfile.name || !newProfile.address || !newProfile.description || !newProfile.gender) {
       setNotification({ type: 'error', message: 'All details are required' });
       setTimeout(() => {
         setNotification(null);
@@ -108,9 +135,12 @@ function App() {
   };
 
 
+  const formatAddress = (address) => {
+   
+    const [city, state] = address.split(',').map(part => part.trim());
+    return `${city}, ${state}`; 
 
-
-
+  }
 
 
   const handleDeleteProfile = (id) => {
@@ -118,18 +148,32 @@ function App() {
   };
 
 
+
+  const handleSearch = (query) => {
+   
+    const filteredProfiles = profiles.filter(profile =>
+      profile.name.toLowerCase().includes(query.toLowerCase()) ||
+      profile.address.toLowerCase().includes(query.toLowerCase()) ||
+      profile.description.toLowerCase().includes(query.toLowerCase())
+    );
+    // Update the profiles state with the filtered results
+    setProfiles(filteredProfiles);
+  };
+
+
+
   return (
     <div className="App">
-      <NavBar isAdminMode={isAdminMode} onToggleAdminMode={toggleAdminMode}   onAddProfile={handleAddProfile} />
+      <NavBar isAdminMode={isAdminMode} onToggleAdminMode={toggleAdminMode}   onAddProfile={handleAddProfile} onSearch={handleSearch}/>
  <UserInterface database={Database} isAdminMode={isAdminMode}    onEditProfile={handleEditProfile}  profiles={profiles}  onDeleteProfile={handleDeleteProfile}/>
  {showAddForm && (
   <div className="modal-backdrop">
     <div className="add-form-container">
     
       <form onSubmit={handleSubmit}>
-        <label>Enter full name</label>
+        <label>Enter Name</label>
         <input type="text" name="name" value={newProfile.name} onChange={handleChange} placeholder="Name" />
-        <label>Enter full name</label>
+        <label>Enter Description</label>
         <input type="text" name="description" value={newProfile.description} onChange={handleChange} placeholder="Description" />
         <label>Enter Address</label>
         <input type="text" name="address" value={newProfile.address} onChange={handleChange} placeholder="Address" />
@@ -153,6 +197,11 @@ function App() {
           {notification.message}
         </div>
       )}
+
+
+
+
+
     </div>
   );
 }

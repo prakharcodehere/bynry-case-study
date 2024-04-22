@@ -3,8 +3,10 @@
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
+    height: auto;
 }
-..modal-backdrop {
+
+.modal-backdrop {
     position: fixed;
     top: 0;
     left: 0;
@@ -15,6 +17,24 @@
     justify-content: center;
     align-items: center;
 }
+
+.pagination button.active {
+    border: 2px solid  #FFB86F; 
+}
+
+.pagination-container {
+    display: flex;
+    justify-content: center;
+  }
+
+  .pagination {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  .pagination button {
+    margin: 5px;
+  }
 
 .edit-form-container {
     width: 90%; /* Adjust width as needed */
@@ -46,4 +66,8 @@
         width: 90%;
         max-width: none;
     }
+
+    .pagination button {
+        margin: 3px;
+      }
 }

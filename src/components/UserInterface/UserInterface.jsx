@@ -5,6 +5,9 @@ import "./UserInterface.css"
 
 const UserInterface = ({isAdminMode, profiles, onDeleteProfile ,onEditProfile}) => {
     const [editProfile, setEditProfile] = useState(null);
+  
+    const [currentPage, setCurrentPage] = useState(1);
+    const profilesPerPage = 6;
 
     const handleEdit = (profile) => {
         setEditProfile(profile);
@@ -19,12 +22,36 @@ const UserInterface = ({isAdminMode, profiles, onDeleteProfile ,onEditProfile}) 
         setEditProfile(null);
       };
 
+      const indexOfLastProfile = currentPage * profilesPerPage;
+      const indexOfFirstProfile = indexOfLastProfile - profilesPerPage;
+      const currentProfiles = profiles.slice(indexOfFirstProfile, indexOfLastProfile);
+  
+      const paginate = (pageNumber) => {
+          setCurrentPage(pageNumber);
+      };
 
+
+      const nextPage = () => {
+        setCurrentPage(currentPage + 1);
+    };
+
+    const prevPage = () => {
+        setCurrentPage(currentPage - 1);
+    };
   return (
     <div className='userinterface-container'>
-{profiles.map((user) => (
-    <ProfileCard id={user.id} name={user.name} description={user.description} address={user.address} image={user.photo} lat={user.lat} lng={user.lng} isAdminMode={isAdminMode} onDeleteProfile={onDeleteProfile} onEditProfile={handleEdit}/>
+{currentProfiles.map((user) => (
+    <ProfileCard key={user.id} id={user.id} name={user.name} description={user.description} address={user.address} image={user.photo} lat={user.lat} lng={user.lng} isAdminMode={isAdminMode} onDeleteProfile={onDeleteProfile} onEditProfile={handleEdit}/>
 ))}
+<div className='pagination-container'>
+  <div className='pagination'>
+    <button onClick={prevPage} disabled={currentPage === 1}>Prev</button>
+    {[...Array(Math.ceil(profiles.length / profilesPerPage)).keys()].map(number => (
+      <button key={number} onClick={() => paginate(number + 1)} className={currentPage === number + 1 ? 'active' : ''}>{number + 1}</button>
+    ))}
+    <button onClick={nextPage} disabled={currentPage === Math.ceil(profiles.length / profilesPerPage)}>Next</button>
+  </div>
+</div>
 {editProfile && (
         <EditProfileForm
           profile={editProfile}
